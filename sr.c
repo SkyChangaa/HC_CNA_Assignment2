@@ -139,6 +139,8 @@ void A_input(struct pkt packet)
           starttimer(A, RTT);  
       }  
     }
+    else if (TRACE > 0)
+      printf ("----A: corrupted ACK received, do nothing!\n");
     
   else if (TRACE > 0)
      printf ("----A: corrupted ACK is received, do nothing!\n");
