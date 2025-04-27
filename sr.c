@@ -203,13 +203,17 @@ void B_input(struct pkt packet)
     /* deliver to the application layer */
     if (!received[packet.seqnum])
     {
-    received[packet.seqnum] == true;
-
-    for (i = 0; i < 20; i++)
-      received_packet[packet.seqnum].payload[i] = packet.payload[i];   
+      received[packet.seqnum] == true;
+      for (i = 0; i < 20; i++)
+        received_packet[packet.seqnum].payload[i] = packet.payload[i];   
     }
 
-    tolayer5(B, packet.payload);
+    while (received[expectedseqnum]) 
+    {
+      tolayer5(B, received_packet[expectedseqnum].payload);
+      received[expectedseqnum] = false;
+      expectedseqnum = (expectedseqnum + 1) % SEQSPACE;
+    }  
 
     /* send an ACK for the received packet */
     sendpkt.acknum = expectedseqnum;
