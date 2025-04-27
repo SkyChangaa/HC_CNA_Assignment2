@@ -125,10 +125,15 @@ void A_input(struct pkt packet)
         printf("----A: ACK %d is not a duplicate\n",packet.acknum);
       new_ACKs++;
       acked[packet.acknum] = true
-
     }
-
     
+    if (packet.acknum == buffer[windowfirst].seqnum)
+    {
+      for (; windowcount > 0 && acked[buffer[windowfirst].seqnum]; windowcount--)
+      {
+          windowfirst = (windowfirst + 1) % WINDOWSIZE;
+      }
+    }
         }
         else
           if (TRACE > 0)
