@@ -112,8 +112,6 @@ void A_output(struct msg message)
 */
 void A_input(struct pkt packet)
 {
-  int ackcount = 0;
-  int i;
 
   /* if received ACK is not corrupted */ 
   if (!IsCorrupted(packet)) 
@@ -153,6 +151,7 @@ void A_timerinterrupt(void)
 {
 
   if (TRACE > 0)
+  {
     printf("----A: time out,resend packets!\n");
 
     /* Retransmit only the leftmost unacknowledged packet in the window */
@@ -160,6 +159,7 @@ void A_timerinterrupt(void)
     packets_resent++;
     if (windowcount > 0)
       starttimer(A,RTT); 
+  }
 }
 
 
@@ -203,7 +203,7 @@ void B_input(struct pkt packet)
     /* deliver to the application layer */
     if (!received[packet.seqnum])
     {
-      received[packet.seqnum] == true;
+      received[packet.seqnum] = true;
       for (i = 0; i < 20; i++)
         received_packet[packet.seqnum].payload[i] = packet.payload[i];   
     }
