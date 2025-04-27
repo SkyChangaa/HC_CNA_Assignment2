@@ -200,7 +200,15 @@ void B_input(struct pkt packet)
       printf("----B: packet %d is correctly received, send ACK!\n",packet.seqnum);
     packets_received++;
 
-    /* deliver to receiving application */
+    /* deliver to the application layer */
+    if (!received[packet.seqnum])
+    {
+    received[packet.seqnum] == true;
+
+    for (i = 0; i < 20; i++)
+      received_packet[packet.seqnum].payload[i] = packet.payload[i];   
+    }
+
     tolayer5(B, packet.payload);
 
     /* send an ACK for the received packet */
