@@ -140,7 +140,7 @@ void A_input(struct pkt packet)
       }  
     }
     else if (TRACE > 0)
-      printf ("----A: corrupted ACK received, do nothing!\n");
+      printf ("----A: corrupted ACK is received, do nothing!\n");
     
   else if (TRACE > 0)
      printf ("----A: corrupted ACK is received, do nothing!\n");
