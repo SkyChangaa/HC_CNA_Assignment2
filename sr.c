@@ -119,7 +119,12 @@ void A_input(struct pkt packet)
   if (!IsCorrupted(packet)) {
     if (TRACE > 0)
       printf("----A: uncorrupted ACK %d is received\n",packet.acknum);
-    total_ACKs_received++;
+    
+    if (!acked[packet.acknum])
+    { if (TRACE > 0)
+      printf("----A: ACK %d is not a duplicate\n",packet.acknum);
+    new_ACKs++;
+    }
 
     
         }
