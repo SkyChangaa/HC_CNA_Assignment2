@@ -132,7 +132,7 @@ void A_input(struct pkt packet)
         {
             windowfirst = (windowfirst + 1) % WINDOWSIZE;
         }
-      }
+      
 
         stoptimer(A);
         if (windowcount > 0)
@@ -144,6 +144,7 @@ void A_input(struct pkt packet)
     
   else if (TRACE > 0)
      printf ("----A: corrupted ACK is received, do nothing!\n");
+  }
 }
 /* called when A's timer goes off */
 void A_timerinterrupt(void)
