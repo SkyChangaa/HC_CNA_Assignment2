@@ -207,7 +207,7 @@ void B_input(struct pkt packet)
       for (i = 0; i < 20; i++)
         received_packet[packet.seqnum].payload[i] = packet.payload[i];   
     }
-
+    /* Send packets to application layer in order*/
     while (received[expectedseqnum]) 
     {
       tolayer5(B, received_packet[expectedseqnum].payload);
@@ -227,7 +227,7 @@ void B_input(struct pkt packet)
     /* send out packet */
     tolayer3 (B, sendpkt);   
   }
-  
+
   else {
     /* packet is corrupted or out of order resend last ACK */
     if (TRACE > 0) 
