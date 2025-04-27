@@ -134,7 +134,10 @@ void A_input(struct pkt packet)
           windowfirst = (windowfirst + 1) % WINDOWSIZE;
       }
     }
-        }
+    
+    stoptimer(A);
+    if (windowcount > 0)
+      starttimer(A, RTT);    }
         else
           if (TRACE > 0)
         printf ("----A: duplicate ACK received, do nothing!\n");
