@@ -155,6 +155,11 @@ void A_timerinterrupt(void)
   if (TRACE > 0)
     printf("----A: time out,resend packets!\n");
 
+    /* Retransmit only the leftmost unacknowledged packet in the window */
+    tolayer3(A,buffer[windowfirst]);
+    packets_resent++;
+    if (windowcount > 0)
+      starttimer(A,RTT); 
 }
 
 
