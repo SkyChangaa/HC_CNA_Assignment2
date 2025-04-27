@@ -142,14 +142,12 @@ void A_input(struct pkt packet)
       }  
     }
     else if (TRACE > 0)
-    {
       printf ("----A: duplicate ACK received, do nothing!\n");
-    }
+    
     
   else if (TRACE > 0)
-  {
-      printf ("----A: corrupted ACK is received, do nothing!\n");
-  }
+     printf ("----A: corrupted ACK is received, do nothing!\n");
+}
 /* called when A's timer goes off */
 void A_timerinterrupt(void)
 {
