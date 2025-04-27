@@ -60,7 +60,7 @@ static struct pkt buffer[WINDOWSIZE];  /* array for storing packets waiting for 
 static int windowfirst, windowlast;    /* array indexes of the first/last packet awaiting ACK */
 static int windowcount;                /* the number of packets currently awaiting an ACK */
 static int A_nextseqnum;               /* the next sequence number to be used by the sender */
-static bool acked[WINDOWSIZE]          /* Track which packets are ACKed */
+static bool acked[WINDOWSIZE];         /* Track which packets are ACKed */
 
 /* called from layer 5 (application layer), passed the message to be sent to other side */
 void A_output(struct msg message)
@@ -116,12 +116,14 @@ void A_input(struct pkt packet)
   int i;
 
   /* if received ACK is not corrupted */ 
-  if (!IsCorrupted(packet)) {
+  if (!IsCorrupted(packet)) 
+  {
     if (TRACE > 0)
       printf("----A: uncorrupted ACK %d is received\n",packet.acknum);
     
     if (!acked[packet.acknum])
-    { if (TRACE > 0)
+    { 
+      if (TRACE > 0)
         printf("----A: ACK %d is not a duplicate\n",packet.acknum);
       new_ACKs++;
       acked[packet.acknum] = true;
@@ -143,12 +145,11 @@ void A_input(struct pkt packet)
     {
       printf ("----A: duplicate ACK received, do nothing!\n");
     }
-  }
+    
   else if (TRACE > 0)
   {
       printf ("----A: corrupted ACK is received, do nothing!\n");
   }
-
 /* called when A's timer goes off */
 void A_timerinterrupt(void)
 {
