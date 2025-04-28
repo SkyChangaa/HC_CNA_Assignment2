@@ -110,7 +110,7 @@ void A_output(struct msg message)
 /* called from layer 3, when a packet arrives for layer 4 
    In this practical this will always be an ACK as B never sends data.
 */
-void A_input(struct pkt packet)
+void A_input(struct pkt packet) 
 {
 
   /* if received ACK is not corrupted */ 
@@ -133,21 +133,18 @@ void A_input(struct pkt packet)
             windowfirst = (windowfirst + 1) % WINDOWSIZE;
         }
       
-        if (windowcount == 0)
-          stoptimer(A);
-        else
-        {
-          stoptimer(A);
-          starttimer(A, RTT);  
-        }  
+        stoptimer(A);
+        if (windowcount > 0)
+          starttimer(A, RTT); 
+      }  
     }
     else if (TRACE > 0)
       printf ("----A: corrupted ACK is received, do nothing!\n");
-    
+  } 
   else if (TRACE > 0)
      printf ("----A: corrupted ACK is received, do nothing!\n");
-  }
 }
+
 /* called when A's timer goes off */
 void A_timerinterrupt(void)
 {
