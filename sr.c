@@ -150,7 +150,6 @@ void A_timerinterrupt(void)
 {
 
   if (TRACE > 0)
-  
     printf("----A: time out,resend packets!\n");
 
   if (TRACE > 0)
@@ -184,7 +183,6 @@ void A_init(void)
 /********* Receiver (B)  variables and procedures ************/
 
 static int expectedseqnum; /* the sequence number expected next by the receiver */
-static int B_nextseqnum;   /* the sequence number for the next packets sent by B */
 static struct pkt received_packet[SEQSPACE];  /* Storing packets received by B*/
 static bool received[SEQSPACE]; /*Track which packets are received */
 
@@ -221,7 +219,7 @@ void B_input(struct pkt packet)
     sendpkt.acknum = packet.seqnum;
     sendpkt.seqnum = NOTINUSE;
 
-    for ( i=0; i<20 ; i++ ) 
+    for ( i=0; i<20; i++ ) 
       sendpkt.payload[i] = '0';  
     /* computer checksum */
     sendpkt.checksum = ComputeChecksum(sendpkt); 
@@ -235,8 +233,7 @@ void B_input(struct pkt packet)
 /* entity B routines are called. You can use it to do any initialization */
 void B_init(void)
 {
-  expectedseqnum = 0;
-  B_nextseqnum = 1;
+  expectedseqnum = 0; 
 }
 
 /******************************************************************************
